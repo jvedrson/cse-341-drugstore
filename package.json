@@ -1,0 +1,21 @@
+{
+  "name": "cse-341-drugstore",
+  "version": "1.0.0",
+  "description": "Team Project: Drugstore",
+  "license": "ISC",
+  "author": "Ederson Villalba | Alex Calizaya | Samuel Sandoval",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "swagger": "node ./swagger.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
