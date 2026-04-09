@@ -1,6 +1,7 @@
 const express = require("express");
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger-output.json");
+// const swaggerUi = require("swagger-ui-express");
+// const swaggerDocument = require("./swagger-output.json");
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -8,14 +9,12 @@ const port = process.env.PORT || 8080;
 const mongoDB = require("./db/database");
 
 app.use(express.json());
+app.use(
+  cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"] }),
+);
+app.use("/", require("./routes"));
 
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-// TODO: Add routes for roles, users, products, and orders
-// app.use("/roles", require("./routes/roles"));
-// app.use("/users", require("./routes/users"));
-// app.use("/products", require("./routes/products"));
-// app.use("/orders", require("./routes/orders"));
 
 mongoDB.initDatabase((err) => {
   if (err) {
