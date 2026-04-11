@@ -5,7 +5,7 @@
     "description": "API for managing Drugstore",
     "version": "1.0.0"
   },
-  "host": "",
+  "host": "cse-341-drugstore-1.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
