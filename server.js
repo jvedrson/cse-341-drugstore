@@ -1,6 +1,5 @@
 const express = require("express");
-// const swaggerUi = require("swagger-ui-express");
-// const swaggerDocument = require("./swagger-output.json");
+
 const cors = require("cors");
 
 const app = express();
@@ -14,7 +13,6 @@ app.use(
 );
 app.use("/", require("./routes"));
 
-// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 mongoDB.initDatabase((err) => {
   if (err) {
