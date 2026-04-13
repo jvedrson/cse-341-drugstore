@@ -44,7 +44,30 @@ const saveProduct = (req, res, next) => {
   });
 };
 
+const saveReview = (req, res, next) => {
+  const validationRule = {
+    product_id: "required|string",
+    user_id: "required|string",
+    score: "required|strict_integer|min:1|max:5",
+    comment: "string|max:500",
+    reviewDate: "required|string",
+  }
+
+  validator(req.body, validationRule, {}, (err, status) => {
+    if (!status) {
+      res.status(412).send({
+        success: false,
+        message: "Validation failed",
+        data: err,
+      });
+    } else {
+      next();
+    }
+  });
+}
+
 module.exports = {
   saveUser,
-  saveProduct
+  saveProduct,
+  saveReview
 };
