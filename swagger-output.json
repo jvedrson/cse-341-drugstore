@@ -5,7 +5,7 @@
     "description": "API for managing Drugstore",
     "version": "1.0.0"
   },
-  "host": "cse-341-drugstore-1.onrender.com",
+  "host": "https://cse-341-drugstore-1.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
@@ -348,6 +348,390 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/orders/": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "",
+        "parameters": [
+  {
+    "name": "body",
+    "in": "body",
+    "required": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "example": "any"
+        },
+        "codigo": {
+          "type": "string",
+          "example": "any"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "product_id": {
+                "type": "string",
+                "example": "any"
+              },
+              "name": {
+                "type": "string",
+                "example": "any"
+              },
+              "price_at_purchase": {
+                "type": "number",
+                "example": "any"
+              },
+              "quantity": {
+                "type": "integer",
+                "example": "any"
+              }
+            },
+            "required": ["product_id", "name", "price_at_purchase", "quantity"]
+          }
+        },
+        "total": {
+          "type": "number",
+          "example": "any"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "paid", "cancelled"],
+          "example": "any"
+        }
+      },
+      "required": ["user_id", "codigo", "products", "total", "status"]
+    }
+  }
+],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/orders/{id}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "",
+        "parameters": [
+          {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "type": "string"
+  },
+  {
+    "name": "body",
+    "in": "body",
+    "required": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "example": "any"
+        },
+        "codigo": {
+          "type": "string",
+          "example": "any"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "product_id": {
+                "type": "string",
+                "example": "any"
+              },
+              "name": {
+                "type": "string",
+                "example": "any"
+              },
+              "price_at_purchase": {
+                "type": "number",
+                "example": "any"
+              },
+              "quantity": {
+                "type": "integer",
+                "example": "any"
+              }
+            },
+            "required": ["product_id", "name", "price_at_purchase", "quantity"]
+          }
+        },
+        "total": {
+          "type": "number",
+          "example": "any"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "paid", "cancelled"],
+          "example": "any"
+        }
+      },
+      "required": ["user_id", "codigo", "products", "total", "status"]
+    }
+  }
+],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "example": "object"
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "user_id": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "507f1f77bcf86cd799439011"
+                }
+              }
+            },
+            "codigo": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "ORD001"
+                }
+              }
+            },
+            "products": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "object"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "product_id": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "string"
+                            },
+                            "example": {
+                              "type": "string",
+                              "example": "507f1f77bcf86cd799439012"
+                            }
+                          }
+                        },
+                        "name": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "string"
+                            },
+                            "example": {
+                              "type": "string",
+                              "example": "Aspirin"
+                            }
+                          }
+                        },
+                        "price_at_purchase": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "number"
+                            },
+                            "example": {
+                              "type": "number",
+                              "example": 5.99
+                            }
+                          }
+                        },
+                        "quantity": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "integer"
+                            },
+                            "example": {
+                              "type": "number",
+                              "example": 2
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "total": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "number"
+                },
+                "example": {
+                  "type": "number",
+                  "example": 11.98
+                }
+              }
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "enum": {
+                  "type": "array",
+                  "example": [
+                    "pending",
+                    "paid",
+                    "cancelled"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "type": "string",
+                  "example": "pending"
+                }
+              }
+            }
           }
         }
       }
