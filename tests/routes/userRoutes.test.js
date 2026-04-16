@@ -41,13 +41,16 @@ describe("User Routes", () => {
     });
 
     it("should handle errors and return 500", async () => {
-      userController.getAll.mockImplementation((req, res) =>
-        res.status(500).json({ error: "Server error" }),
-      );
+      const errorMessage = "Database error: Error retrieving users.";
+
+      userController.getAll.mockImplementation((req, res) => {
+        throw new Error(errorMessage);
+      });
 
       const res = await request(app).get("/users");
 
       expect(res.status).toBe(500);
+      expect(res.error.text).toContain(errorMessage);
       expect(userController.getAll).toHaveBeenCalled();
     });
   });
@@ -88,13 +91,16 @@ describe("User Routes", () => {
     });
 
     it("should handle errors and return 500", async () => {
-      userController.getSingle.mockImplementation((req, res) =>
-        res.status(500).json({ error: "Server error" }),
-      );
+      const errorMessage = "Database error: Error retrieving the user.";
+
+      userController.getSingle.mockImplementation((req, res) => {
+        throw new Error(errorMessage);
+      });
 
       const res = await request(app).get("/users/123");
 
       expect(res.status).toBe(500);
+      expect(res.error.text).toContain(errorMessage);
       expect(userController.getSingle).toHaveBeenCalled();
     });
   });
