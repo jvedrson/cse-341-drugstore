@@ -25,10 +25,10 @@ const saveProduct = (req, res, next) => {
   const validationRule = {
     name: "required|string|min:3|max:100",
     description: "string|max:500",
-    price: "required|strict_numeric|min:0",
-    stock: "required|strict_integer|min:0",
-    is_public: "required|strict_boolean",
-    active: "required|strict_boolean"
+    price: "required|numeric|min:0",
+    stock: "required|integer|min:0",
+    is_public: "required|boolean",
+    active: "required|boolean",
   };
 
   validator(req.body, validationRule, {}, (err, status) => {
@@ -44,16 +44,16 @@ const saveProduct = (req, res, next) => {
   });
 };
 
-
 const saveOrder = (req, res, next) => {
   const validationRule = {
-    user_id: "required|string", 
+    user_id: "required|string",
     codigo: "required|string|min:5|max:20",
-    "products.*.product_id": "required|string", 
+    products: "required|array|min:1",
+    "products.*.product_id": "required|string",
     "products.*.name": "required|string|min:2|max:100",
-    "products.*.price_at_purchase": "required|strict_numeric|min:0.01",
-    "products.*.quantity": "required|strict_integer|min:1",
-    total: "required|strict_numeric|min:0.01",
+    "products.*.price_at_purchase": "required|numeric|min:0.01",
+    "products.*.quantity": "required|integer|min:1",
+    total: "required|numeric|min:0.01",
     status: "required|string|in:pending,paid,cancelled",
   };
 
@@ -70,16 +70,15 @@ const saveOrder = (req, res, next) => {
   });
 };
 
-  const saveReview = (req, res, next) => {
-    const validationRule = {
-      product_id: "required|string",
-      user_id: "required|string",
-      score: "required|strict_integer|min:1|max:5",
-      comment: "string|max:500",
-      reviewDate: "required|string",
-    }
-  
-
+const saveReview = (req, res, next) => {
+  const validationRule = {
+    product_id: "required|string",
+    user_id: "required|string",
+    reviewerName: "required|string|min:3|max:50",
+    score: "required|integer|min:1|max:5",
+    comment: "string|max:500",
+    reviewDate: "required|string",
+  };
 
   validator(req.body, validationRule, {}, (err, status) => {
     if (!status) {
@@ -94,10 +93,9 @@ const saveOrder = (req, res, next) => {
   });
 };
 
-
 module.exports = {
   saveUser,
   saveProduct,
   saveOrder,
-  saveReview
+  saveReview,
 };
