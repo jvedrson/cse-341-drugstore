@@ -7,6 +7,7 @@ const doc = {
   },
   host: "cse-341-drugstore-1.onrender.com",
   schemes: ["https"],
+  
 };
 
 const outputFile = "./swagger-output.json";

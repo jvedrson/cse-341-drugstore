@@ -44,14 +44,18 @@ const saveProduct = (req, res, next) => {
   });
 };
 
-const saveReview = (req, res, next) => {
+
+const saveOrder = (req, res, next) => {
   const validationRule = {
-    product_id: "required|string",
-    user_id: "required|string",
-    score: "required|strict_integer|min:1|max:5",
-    comment: "string|max:500",
-    reviewDate: "required|string",
-  }
+    user_id: "required|string", 
+    codigo: "required|string|min:5|max:20",
+    "products.*.product_id": "required|string", 
+    "products.*.name": "required|string|min:2|max:100",
+    "products.*.price_at_purchase": "required|strict_numeric|min:0.01",
+    "products.*.quantity": "required|strict_integer|min:1",
+    total: "required|strict_numeric|min:0.01",
+    status: "required|string|in:pending,paid,cancelled",
+  };
 
   validator(req.body, validationRule, {}, (err, status) => {
     if (!status) {
@@ -64,10 +68,36 @@ const saveReview = (req, res, next) => {
       next();
     }
   });
-}
+};
+
+  const saveReview = (req, res, next) => {
+    const validationRule = {
+      product_id: "required|string",
+      user_id: "required|string",
+      score: "required|strict_integer|min:1|max:5",
+      comment: "string|max:500",
+      reviewDate: "required|string",
+    }
+  
+
+
+  validator(req.body, validationRule, {}, (err, status) => {
+    if (!status) {
+      res.status(412).send({
+        success: false,
+        message: "Validation failed",
+        data: err,
+      });
+    } else {
+      next();
+    }
+  });
+};
+
 
 module.exports = {
   saveUser,
   saveProduct,
+  saveOrder,
   saveReview
 };
