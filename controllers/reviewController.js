@@ -129,7 +129,7 @@ const createReview = async (req, res) => {
     const review = {
       product_id: req.body.product_id,
       user_id: req.body.user_id,
-      reviewerName: user.name,
+      reviewerName: req.body.reviewerName,
       score: req.body.score,
       comment: req.body.comment,
       reviewDate: req.body.reviewDate,
